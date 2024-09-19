@@ -32,10 +32,10 @@ function SideNav() {
 ]
   return (
     <div className='border border-black shadow-md h-screen w-40 bg-red-700 '>
-      <Image src ={'./logo.svg'}
+      <a href="/dashboard"><Image src ={'./logo.svg'}
       width={180}
       height={50}
-      alt="ncc logo"/>
+      alt="ncc logo"/></a>
       <hr className="my-5"></hr>
       {menulist.map((menu,index)=>(
         <Link href={menu.path}>
@@ -51,7 +51,8 @@ function SideNav() {
         hover:text-white 
         cursor-pointer 
         rounded-lg
-        select-none'>
+        select-none
+        transition ease-in-out delay-125'>
         <menu.icon/>
         {menu.name}
         </h2></Link>
