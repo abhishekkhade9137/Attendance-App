@@ -7,70 +7,57 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from '@/components/ui/input';
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Save } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { addMember } from '@/app/actions/memberActions';
 
 function NewMember() {
-  const [Open, setOpen] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm()
+  const [open, setOpen] = useState(false);
+
+  async function handleAction(formData) {
+    const res = await addMember(formData);
+    if (res.success) {
+      setOpen(false);
+    } else {
+      alert(res.error || "Failed to add member");
+    }
+  }
 
   return (
     <div>
-      <Button onClick={()=>setOpen(true)} className="bg-black text-white hover:bg-black/80">Add new Member</Button>
-      <Dialog open={Open}>
-  
-  <DialogContent className="bg-white text-black">
-    <DialogHeader>
-      <DialogTitle>Add new Member</DialogTitle>
-      <DialogDescription className="text-black">
-        <div className='py-3'>
-          <label>Full name</label>
-          <Input placeholder="John Doe" className="border-black" {...register('name',{required:true})} />
-          </div>
-          <div className='py-3'>
-          <label>ID / Reg Number</label>
-          <Input placeholder="12345" className="border-black" />
-          </div>
-          <div className='py-3'>
-          <label>Role</label>
-          <Select>
-            <SelectTrigger className="w-[180px] border-black">
-            <SelectValue placeholder="Role" />
-          </SelectTrigger>
-            <SelectContent className="bg-white border-black" {...register('grade',{required:true})}>
-              <SelectItem value={"Member"}>Member</SelectItem>
-              <SelectItem value={"Leader"}>Leader</SelectItem>
-              <SelectItem value={"Admin"}>Admin</SelectItem>
-              </SelectContent>
-              </Select>
-          </div>
-          <div className='flex gap-3 justify-end'>
-            <Button variant='outline' onClick={()=>setOpen(false)} className='bg-white text-black border-black border hover:bg-gray-100 font-bold'>Close</Button>
-            <Button onClick={()=>console.log("save")} className='bg-black text-white hover:bg-black/80 font-bold'>Save</Button>
-          </div>
-          
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
-
-      
+      <Button onClick={() => setOpen(true)} className="bg-black text-white hover:bg-black/80 font-bold">Add new Member</Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="bg-white text-black">
+          <DialogHeader>
+            <DialogTitle>Add new Member</DialogTitle>
+            <DialogDescription className="text-black">
+              <form action={handleAction} className='flex flex-col gap-4 mt-4'>
+                <div>
+                  <label className='font-bold'>Full name</label>
+                  <Input name="name" placeholder="John Doe" className="border-black mt-1" required />
+                </div>
+                <div>
+                  <label className='font-bold'>ID / Reg Number</label>
+                  <Input name="regNumber" placeholder="12345" className="border-black mt-1" required />
+                </div>
+                <div>
+                  <label className='font-bold'>Role</label>
+                  <select name="role" className="w-full border border-black p-2 rounded-md mt-1 bg-white" required>
+                    <option value="">Select Role</option>
+                    <option value="Member">Member</option>
+                    <option value="Leader">Leader</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </div>
+                <div className='flex gap-3 justify-end mt-4'>
+                  <Button type="button" variant='outline' onClick={() => setOpen(false)} className='bg-white text-black border-black border hover:bg-gray-100 font-bold'>Close</Button>
+                  <Button type="submit" className='bg-black text-white hover:bg-black/80 font-bold'>Save</Button>
+                </div>
+              </form>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
