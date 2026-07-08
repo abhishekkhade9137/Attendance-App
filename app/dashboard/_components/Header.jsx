@@ -3,16 +3,18 @@ import React from 'react'
 function Header() {
   return (
     <div className='h-20
-      border
+      border-b
+      border-black
       flex 
       justify-between
-      bg-blue-500
+      bg-white
       text-center
+      text-black
       bold
       '>
       <div className='flex-1'></div>
-      <div className=''>
-        <h className='bold text-center text-3xl font-extrabold'>VIT NCC ATTENDANCE APP</h>
+      <div className='flex items-center justify-center'>
+        <h1 className='bold text-center text-3xl font-extrabold'>ATTENDANCE APP</h1>
       </div>
       <div className='flex-1'></div>
     </div>

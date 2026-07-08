@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import {Hand,LayoutIcon, PersonStandingIcon, Settings } from 'lucide-react'
 import Link from 'next/link'
 function SideNav() {
@@ -12,9 +11,9 @@ function SideNav() {
     },
   {
     id:2,
-    name:'Cadets',
+    name:'Members',
     icon:PersonStandingIcon,
-    path:'/dashboard/Cadets',
+    path:'/dashboard/Members',
 
   },
   {
@@ -31,26 +30,25 @@ function SideNav() {
   }
 ]
   return (
-    <div className='border border-black shadow-md h-screen w-40 bg-red-700 '>
-      <a href="/dashboard"><Image src ={'./logo.svg'}
-      width={180}
-      height={50}
-      alt="ncc logo"/></a>
-      <hr className="my-5"></hr>
+    <div className='border-r border-black shadow-md h-screen w-40 bg-white text-black '>
+      <div className='p-4 font-extrabold text-xl text-center border-b border-black'>
+        <a href="/dashboard">ATTENDANCE</a>
+      </div>
+      <div className="my-5"></div>
       {menulist.map((menu,index)=>(
-        <Link href={menu.path}>
-        <h2 className='display:flex
-        align-items:items-center
+        <Link href={menu.path} key={index}>
+        <h2 className='flex
+        items-center
         gap-3
         text-md
-        bold
+        font-bold
         p-4
         text-black
-        border- 
-        hover:bg-yellow-500 
+        hover:bg-black 
         hover:text-white 
         cursor-pointer 
         rounded-lg
+        mx-2
         select-none
         transition ease-in-out delay-125'>
         <menu.icon/>
@@ -58,14 +56,13 @@ function SideNav() {
         </h2></Link>
       ))}
       <div className='flex
-      align-items
+      items-center
       bottom-2
       left-5
       fixed
-      bold 
-      text-xs 
-      font-extrabold'>
-        <h3 className=' select-none'>MADE WITH LOVE 💕</h3>
+      font-bold 
+      text-xs'>
+        <h3 className='select-none'>MADE WITH LOVE 💕</h3>
       </div>
       </div>
       
